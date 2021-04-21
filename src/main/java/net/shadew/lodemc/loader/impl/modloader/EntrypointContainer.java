@@ -85,7 +85,12 @@ public class EntrypointContainer {
             }
         }
         if (element.getElementType() == ElementType.TYPE) {
-            findClass(element.getContainerType(), loader.getGameClassLoader());
+            try {
+                Class.forName(element.getContainerType().getClassName(), true, loader.getGameClassLoader());
+            } catch (ClassNotFoundException ignored) {
+                // A class should exist if it is annotated - only reason we reach here is that it was stripped by
+                // a later transformer
+            }
         }
     }
 
