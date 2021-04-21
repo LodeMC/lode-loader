@@ -62,3 +62,82 @@ License. You may obtain a copy of the License at
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "
 AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 language governing permissions and limitations under the License.
+
+# Samples
+
+Here are a few tiny code features of Lode.
+
+### Annotation-based entrypoints
+
+```java
+@Entrypoint
+public static void init() {
+    // This method is called on initialization
+}
+```
+
+```java
+@Entrypoint
+public class LoadMe {
+    // This class is initialized on initialization
+}
+```
+
+### Load classes with other classes
+
+```java
+@LoadWith(Blocks.class)
+public class ILoadWithBlocks {
+    // This class is initialized as soon as Blocks
+    // is initialized
+}
+```
+
+### Client/Server exclusion
+
+```java
+@ClientOnly
+public void iExistOnTheClientOnly() {
+}
+
+@ServerOnly
+public void iExistOnTheDedicatedServerOnly() {
+}
+```
+
+### Plugins
+
+`lode_loader_plugin.json`
+
+```json
+{
+  "id": "example",
+  "package": "path.to.plugin.package",
+  "plugins": [
+    "SomePluginClass"
+  ]
+}
+```
+
+```java
+public class SomePluginClass implements LoaderPlugin {
+    @Override
+    public void init(LodeLoader loader) {
+        // Initialized by the loader before mods are loaded
+        // You can register custom transformers here
+    }
+}
+```
+
+### Mixin
+
+```java
+@Mixin(net.minecraft.client.main.Main.class)
+public class MainMixin {
+    @Inject(method = "main", at = @At("HEAD"))
+    private static void onMain(String[] args, CallbackInfo info) {
+        // Invoked as soon as the Minecraft client is started
+        System.out.println("MIXIN IS APPLIED");
+    }
+}
+```
