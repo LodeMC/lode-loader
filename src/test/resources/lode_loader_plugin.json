@@ -1,0 +1,7 @@
+{
+  "id": "testmod",
+  "package": "net.shadew.lodemc.testmod.plugin",
+  "plugins": [
+    "Plugin"
+  ]
+}

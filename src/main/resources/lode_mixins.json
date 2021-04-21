@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "net.shadew.lodemc.mixin",
+  "minVersion": "0.8.2",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "MainMixin"
+  ],
+  "mixins": [
+  ]
+}

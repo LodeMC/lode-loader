@@ -1,0 +1,11 @@
+{
+  "id": "lode_loader",
+  "name": "Lode Loader",
+  "version": "0.1",
+  "environment": "both",
+  "description": [
+    "Lode Loader is a small Mod Loader for Minecraft"
+  ],
+  "license": "Apache License 2.0",
+  "mixins": "lode_mixins.json"
+}

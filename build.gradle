@@ -1,0 +1,70 @@
+/*
+ * Copyright 2021 Shadew
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+plugins {
+    id 'java'
+}
+
+group 'net.shadew.lode'
+version '0.1'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url "https://libraries.minecraft.net/" }
+    maven { url "https://maven.shadew.net/" }
+    maven { url "https://repo.spongepowered.org/maven" }
+}
+
+dependencies {
+    // You will need to have these in your local maven repository, mapped in Mojang mappings
+    // Currently I have no proper Gradle tool to generate them
+    implementation 'net.minecraft:minecraft:1.16.4'
+    implementation 'net.minecraft:minecraft-assets:1.16.4'
+
+    implementation 'org.ow2.asm:asm:8.0.1'
+    implementation 'org.ow2.asm:asm-tree:8.0.1'
+    implementation 'org.ow2.asm:asm-util:8.0.1'
+    implementation 'org.ow2.asm:asm-commons:8.0.1'
+    implementation 'net.shadew:shwutil:1.5.0'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'org.spongepowered:mixin:0.8.2'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task setupTest() {
+    dependsOn "compileTestJava"
+    dependsOn "processTestResources"
+    doLast {
+        delete "$projectDir/run/mods/testmod"
+        copy {
+            from "$buildDir/classes/java/test"
+            into "$projectDir/run/mods/testmod"
+        }
+        copy {
+            from "$buildDir/resources/test"
+            into "$projectDir/run/mods/testmod"
+        }
+    }
+}
+
+classes.finalizedBy(setupTest)

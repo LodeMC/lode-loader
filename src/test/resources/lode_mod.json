@@ -1,0 +1,10 @@
+{
+  "id": "lode_test",
+  "name": "Lode Loader Test Mod",
+  "version": "0.1",
+  "environment": "both",
+  "description": [
+    "Lode Loader is a small Mod Loader for Minecraft"
+  ],
+  "license": "Apache License 2.0"
+}
